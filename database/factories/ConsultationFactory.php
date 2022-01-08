@@ -15,6 +15,7 @@ class ConsultationFactory extends Factory
 {
     protected $cptDossierMaladie = 1;
     protected $idPatient = 1;
+    protected $cptConsultation = 1;
     /**
      * Define the model's default state.
      *
@@ -23,9 +24,10 @@ class ConsultationFactory extends Factory
     public function definition()
     {
         $tabStatut = array(4, 4, 4, 1, 2, 3);
-        // $new
-        // $idPatient = $this->faker->numberBetween(1,Patient::all()->count());
-        // $nbDossiers = Patient::find($this->idPatient)->dossiermedicals()->count();
+
+        if ($this->idPatient == 200) {
+            $this->idPatient = 1;
+        }
         if ($this->cptDossierMaladie <= 800) {
             $newDossiermedical = new Dossiermedical;
             $newDossiermedical->patient_id = $this->idPatient;
@@ -41,29 +43,28 @@ class ConsultationFactory extends Factory
             }
             $newDossiermedical->maladie_id = $idMaladie;
 
-            // $idStatutdossier = $this->faker->numberBetween(1,Statutdossiermed::all()->count());
             if (!Maladie::find($idMaladie)->curable) {
 
                 $newDossiermedical->statutdossiermed_id = 3;
             } else {
                 $newDossiermedical->statutdossiermed_id = $this->faker->numberBetween(1, 2);
             }
-            $newDossiermedical->idConsultation =  Consultation::all()->count() + 1;
+            $newDossiermedical->idConsultation =  $this->cptConsultation;
             $newDossiermedical->diagnostique =  Maladie::find($idMaladie)->nom;
 
             $newDossiermedical->save();
+            $this->cptDossierMaladie++;
+            $this->cptConsultation++;
         }
 
-        if ($this->idPatient == 200) {
-            $this->idPatient = 0;
-        }
+
 
         return [
             "id_patient" => $this->idPatient++,
             "statutconsultation_id" => $this->faker->randomElement($tabStatut),
             "local_id" => $this->faker->numberBetween(1, Local::all()->count()),
             "docteur_id" => $this->faker->numberBetween(1, Docteur::all()->count()),
-            "dateHeure" => $this->faker->dateTimeBetween($startDate = '2021-06-01 09:00:00', $endDate = '2022-01-31 18:00:00', $timezone = 'Europe/Paris')
+            "dateHeure" => $this->faker->dateTimeBetween($startDate = '-7 months', $endDate = '+24 days', $timezone = 'Europe/Paris')
 
         ];
     }

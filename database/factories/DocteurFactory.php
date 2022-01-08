@@ -63,7 +63,7 @@ class DocteurFactory extends Factory
         // $nom = $this->faker->name;
         // $nomDocteur = `Dr. $nomDocteur `;
         return [
-            "nom" => "Dr". $this->faker->name,
+            "nom" => "Dr. ". $this->faker->name,
             "anneesexperience" => $this->faker->numberBetween(3, 20),
             "specialisation" => $this->faker->randomElement($tab),
         ];

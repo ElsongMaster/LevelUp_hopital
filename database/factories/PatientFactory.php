@@ -14,7 +14,7 @@ class PatientFactory extends Factory
     public function definition()
     {
         return [
-            "registre_national" => "00",
+            "registre_national" => $this->faker->numerify('###-###-####'),
             "nom" => $this->faker->lastName,
             "prenom" => $this->faker->firstName,
             "date_naissance" => $this->faker->date($format = 'Y-m-d', $max = '2010-01-01'),

@@ -24,6 +24,6 @@ class Dossiermedical extends Model
     // }
 
     public function maladie(){
-        return $this->belongsTo(Maladie::class,'dossiermedical_maladies','dossiermedical_id','maladie_id');
+        return $this->belongsTo(Maladie::class);
     }
 }

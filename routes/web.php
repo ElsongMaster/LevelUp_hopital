@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DossiermedicalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HopitalController;
+use App\Http\Controllers\PatientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,8 @@ use App\Http\Controllers\HopitalController;
 |
 */
 
-Route::get('/',[HopitalController::class,'index'])->name('hopitaux');
+Route::get('/', [HopitalController::class, 'index'])->name('hopitaux');
+Route::get('/Patients', [PatientController::class, 'index'])->name('patients');
+Route::get('/dossiermedical/{idpatient}', [DossiermedicalController::class, 'index'])->name('dossiermedical');
+
+Route::get('/hopital/{hopital}', [HopitalController::class, 'show'])->name('showhopital');
